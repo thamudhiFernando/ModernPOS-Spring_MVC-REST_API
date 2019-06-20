@@ -29,17 +29,19 @@ public class ItemController {
         if (itemService.isItemExists(code)) {
             dto = itemService.getItemById(code);
         }
+        System.out.println("dto : " + dto);
         return new ResponseEntity<ItemDTO>(dto, (dto != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveItem(@RequestBody ItemDTO itemDTO) {
+        System.out.println("itemDTO :" +itemDTO);
         if (itemDTO.getCode().isEmpty() || itemDTO.getDescription().isEmpty() || itemDTO.getUnitPrice() == 0.00 || itemDTO.getQtyOnHand() == 0) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         } else {
             String saveId = itemService.saveItem(itemDTO);
-            return new ResponseEntity<String>(saveId, (saveId != null) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("\""+saveId+"\"", (saveId != null) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RequestMapping("api/v1/orders")
 @RestController
 public class OrderController {
@@ -22,6 +23,7 @@ public class OrderController {
 
     @GetMapping
     public List<OrderDTO> getAllOrders(){
+//        System.out.println(orderService.getAllOrders());
         return orderService.getAllOrders();
     }
 
@@ -45,7 +47,10 @@ public class OrderController {
             return new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
         } else {
             Integer savedOrderID = orderService.placeOrder(orderDTO);
-            return new ResponseEntity<Integer>(savedOrderID, (savedOrderID != null) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST);
+            System.out.println(savedOrderID);
+//            return new ResponseEntity<Integer>(Integer.valueOf("\"+savedOrderID+\""), (savedOrderID != null) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Integer>(HttpStatus.CREATED);
         }
     }
+
 }

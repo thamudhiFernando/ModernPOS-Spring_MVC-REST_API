@@ -3,11 +3,13 @@ package lk.pos.springmvc.finalapp.controller;
 import lk.pos.springmvc.finalapp.dto.CustomerDTO;
 import lk.pos.springmvc.finalapp.service.custom.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin
@@ -20,6 +22,11 @@ public class CustomerController {
 
     @GetMapping
     public List<CustomerDTO> getAllCustomers() {
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.add("X-Count",customerService.cu);
+//        httpHeaders.setAccessControlAllowHeaders(Arrays.asList("X-Count"));
+//        httpHeaders.setAccessControlExposeHeaders(Arrays.asList("X-Count"));
+//        return new ResponseEntity<List<CustomerDTO>>(customerService.getAllCustomers(),httpHeaders,HttpStatus.OK);
         return customerService.getAllCustomers();
     }
 
@@ -29,17 +36,19 @@ public class CustomerController {
         if (customerService.isCustomerExists(id)){
             dto = customerService.getCustomerById(id);
         }
+        System.out.println("dto : " + dto);
         return new ResponseEntity<CustomerDTO>(dto, (dto != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveCustomer(@RequestBody CustomerDTO customer){
+        System.out.println("customer :" +customer);
         if (customer.getId().isEmpty() || customer.getName().isEmpty() || customer.getAddress().isEmpty()){
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }else{
             String customerId = customerService.saveCustomer(customer);
-            return new ResponseEntity<String>(customerId, (customerId != null) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("\""+customerId+"\"", (customerId != null) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST);
         }
     }
 
