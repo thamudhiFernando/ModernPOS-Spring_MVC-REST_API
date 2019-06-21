@@ -12,7 +12,6 @@ import lk.pos.springmvc.finalapp.repository.OrderDetailRepository;
 import lk.pos.springmvc.finalapp.repository.OrderRepository;
 import lk.pos.springmvc.finalapp.service.custom.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,5 +74,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean isOrderExists(Integer orderID) {
         return orderRepository.existsById(orderID);
+    }
+
+
+    public String getCurrentId() {
+        String id = String.valueOf(Integer.parseInt(orderDetailRepository.getTopOrderByOrderByOrderidDesc().getOrderid())+1);
+        return "00"+id;
     }
 }

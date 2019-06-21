@@ -1,20 +1,19 @@
 package lk.pos.springmvc.finalapp.dto;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class OrderDTO {
 
     private int orderId;
-    private Date orderDate;
+    private String orderDate;
     private String customerId;
     private List<OrderDetailDTO> orderDetails = new ArrayList<>();
 
     public OrderDTO() {
     }
 
-    public OrderDTO(int orderId, Date orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
+    public OrderDTO(int orderId, String orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.customerId = customerId;
@@ -29,11 +28,11 @@ public class OrderDTO {
         this.orderId = orderId;
     }
 
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
 

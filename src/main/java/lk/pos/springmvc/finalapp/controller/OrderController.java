@@ -23,10 +23,15 @@ public class OrderController {
 
     @GetMapping
     public List<OrderDTO> getAllOrders(){
-//        System.out.println(orderService.getAllOrders());
         return orderService.getAllOrders();
     }
+    @GetMapping(params ="maxid=true", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> currentID(){
 
+        String id = orderService.getCurrentId();
+        System.out.println(id);
+        return new ResponseEntity<String>("\""+id+"\"",HttpStatus.OK);
+    }
 
     @GetMapping(value = "/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OrderDTO> getOrder(@PathVariable("orderId") Integer orderId) {

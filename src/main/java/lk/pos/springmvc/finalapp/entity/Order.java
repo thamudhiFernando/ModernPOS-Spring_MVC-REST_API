@@ -2,7 +2,6 @@ package lk.pos.springmvc.finalapp.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -11,7 +10,7 @@ public class Order extends SuperEntity {
 
     @Id
     private int id;
-    private Date date;
+    private String date;
     @ManyToOne
     @JoinColumn(name="customerId",referencedColumnName = "custID")
     private Customer customer;
@@ -22,7 +21,7 @@ public class Order extends SuperEntity {
     public Order() {
     }
 
-    public Order(int id, Date date, Customer customer) {
+    public Order(int id, String date, Customer customer) {
         this.id = id;
         this.date = date;
         this.customer = customer;
@@ -36,11 +35,11 @@ public class Order extends SuperEntity {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
